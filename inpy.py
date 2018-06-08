@@ -20,6 +20,7 @@ import xlrd
 import xlwt
 import sys
 import os
+import re
 
 
 
@@ -37,6 +38,12 @@ SECRET_KEY = '4TGtNMPxNGg8hP6RcMsGveDfxcicwPuF'
 client = AipOcr(APP_ID, API_KEY, SECRET_KEY)
 #img识别失败的文件
 ocrFalseImg=[]
+# 检测中文函数
+zh_pattern = re.compile(u'[\u4e00-\u9fa5]+')
+def contain_zh(word):
+    global zh_pattern
+    match = zh_pattern.search(word)
+    return match
 
 
 
@@ -121,12 +128,14 @@ for pdfIndex in range(len(pdfNames)):
                 return fp.read()
 
         image = get_file_content(fatherUrl+'/img/'+str(pdfNames[pdfIndex])[:-4]+'/'+imgFileName[txtIndex])
+
         print('正在读取【'+imgFileName[txtIndex]+'】'+'   进度为：'+str(txtIndex)+'/'+str(imgFileNamesLen))
         """ 如果有可选参数 """
         options = {}
         options["detect_direction"] = "true"
         options["probability"] = "true"
         templateSign = "f3b35f4c3d36db6b89c9608ea288d8b6"
+        classifierId = int(1)
         """ 带参数调用通用文字识别, 图片参数为本地图片 """
 
         try:
@@ -155,12 +164,28 @@ for pdfIndex in range(len(pdfNames)):
         try:
 
             for i in range(len(result['data']['ret'])):
-                with open(imgFileNames[txtIndex]+r'.txt', 'a') as f:
-                    f.write(result['data']['ret'][i]['word']+'\n')
+                if contain_zh(result['data']['ret'][i]['word']):
+                    print('字段涵盖中文,break！')
+                    break
+                else:
+                    with open(imgFileNames[txtIndex]+r'.txt', 'a') as f:
+                        f.write(result['data']['ret'][i]['word']+'\n')
                     print('成功写入=>'+str(result['data']['ret'][i]['word_name']))
                     print('------------------')
+
+                # if contain_zh(str(result['data']['ret'][i]['word'])):
+                #     print('包含中文,跳过本次创建')
+                #     continue
+                # else:
+                #     with open(imgFileNames[txtIndex]+r'.txt', 'a') as f:
+                #         f.write(result['data']['ret'][i]['word']+'\n') 
+                #     print('成功写入=>'+str(result['data']['ret'][i]['word_name']))
+                #     print('------------------')
+
+            
             print('【'+imgFileNames[txtIndex]+r'.txt'+'】'+'   写入成功！')
             print('------------------')
+            
             
             
         except Exception as e: 
