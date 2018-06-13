@@ -10,6 +10,7 @@
 """
 
 
+
 from aip import AipOcr
 from datetime import date, datetime
 import PythonMagick
@@ -162,16 +163,25 @@ for pdfIndex in range(len(pdfNames)):
             continue
 
         try:
-
+            # print(result['data']['ret'])
+            jump=False
             for i in range(len(result['data']['ret'])):
                 if contain_zh(result['data']['ret'][i]['word']):
-                    print('字段涵盖中文,break！')
+                    jump=True
                     break
                 else:
+                    jump=False
+
+            if jump==False:
+                for i in range(len(result['data']['ret'])):
                     with open(imgFileNames[txtIndex]+r'.txt', 'a') as f:
                         f.write(result['data']['ret'][i]['word']+'\n')
                     print('成功写入=>'+str(result['data']['ret'][i]['word_name']))
                     print('------------------')
+
+                print('【'+imgFileNames[txtIndex]+r'.txt'+'】'+'   写入成功！')
+                print('------------------')
+ 
 
                 # if contain_zh(str(result['data']['ret'][i]['word'])):
                 #     print('包含中文,跳过本次创建')
@@ -182,12 +192,7 @@ for pdfIndex in range(len(pdfNames)):
                 #     print('成功写入=>'+str(result['data']['ret'][i]['word_name']))
                 #     print('------------------')
 
-            
-            print('【'+imgFileNames[txtIndex]+r'.txt'+'】'+'   写入成功！')
-            print('------------------')
-            
-            
-            
+    
         except Exception as e: 
             print(e)
 
@@ -247,8 +252,11 @@ for pdfIndex in range(len(pdfNames)):
 
                 """处理字符串"""
                 threeLine=''.join(lines[2]).strip('\n')       
-                # 截取前六位
-                txtIndex=threeLine[0:6]
+                if threeLine[0:6]:
+                    # 截取前六位
+                    txtIndex=threeLine[0:6]
+                else:
+                    break
                 # 替换前六位变成 （,*****）
                 newTxt=threeLine.replace(txtIndex,','+txtIndex)
                 # 字符串转数组
