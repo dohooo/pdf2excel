@@ -158,8 +158,8 @@ for pdfIndex in range(len(pdfNames)):
             # result = client.custom(image, templateSign)
             postdata = urllib.parse.urlencode({  
                 "image":image,  
-                "templateSign":"f3b35f4c3d36db6b89c9608ea288d8b6",
-                
+                # "templateSign":"f3b35f4c3d36db6b89c9608ea288d8b6",
+                "classifierId":1
             }).encode("utf-8") #将数据使用urlencode编码后，使用encode（）设置utf-8编码  
 
             req = urllib.request.Request(api_url,postdata)  
