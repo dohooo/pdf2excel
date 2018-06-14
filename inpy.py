@@ -22,6 +22,8 @@ import xlwt
 import sys
 import os
 import re
+import urllib.request,urllib.error,urllib.parse,sys,ssl,json
+import base64
 
 
 
@@ -45,6 +47,19 @@ def contain_zh(word):
     global zh_pattern
     match = zh_pattern.search(word)
     return match
+#获取Access_token /// client_id 为官网获取的AK， client_secret 为官网获取的SK
+host = 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=DQ7XPA80smAQxYozIrXpS1ng&client_secret=qN8M7PvGRTy2MwfQDnyKbjhdQa3UtWQg'
+request1=urllib.request.Request(host)
+request1.add_header('Content-Type', 'application/json;charset=UTF-8')
+response = urllib.request.urlopen(request1)
+content = response.read()
+if (content):
+    print(json.loads(str(content, encoding = "utf-8"))['access_token'])
+Access_token=json.loads(str(content, encoding = "utf-8"))['access_token']
+
+
+api_url = "https://aip.baidubce.com/rest/2.0/solution/v1/iocr/recognise?access_token="+Access_token 
+
 
 
 
@@ -126,7 +141,7 @@ for pdfIndex in range(len(pdfNames)):
         """ 读取图片 """
         def get_file_content(filePath):
             with open(filePath, 'rb') as fp:
-                return fp.read()
+                return base64.b64encode(fp.read())
 
         image = get_file_content(fatherUrl+'/img/'+str(pdfNames[pdfIndex])[:-4]+'/'+imgFileName[txtIndex])
 
@@ -140,25 +155,37 @@ for pdfIndex in range(len(pdfNames)):
         """ 带参数调用通用文字识别, 图片参数为本地图片 """
 
         try:
-            result = client.custom(image, templateSign)
+            # result = client.custom(image, templateSign)
+            postdata = urllib.parse.urlencode({  
+                "image":image,  
+                "templateSign":"25c21a77d7daa2446856871c49f253c4"  
+            }).encode("utf-8") #将数据使用urlencode编码后，使用encode（）设置utf-8编码  
+
+            req = urllib.request.Request(api_url,postdata)  
+            req.add_header('Content-Type', 'application/x-www-form-urlencoded')
+
+            result = json.loads(urllib.request.urlopen(req).read().decode("utf-8"))
+            # result类型
+            # print(type(result))
+            # result数据
+            # print(result)
         except Exception as e: 
             print('请检查当前网络,问题如下：')
             print(e)
             continue
-        # else:
-            # print(result)
 
         try:
-            if str(result['data']['isStructured'])=='False':
+            if result['data']['isStructured']=='False':
                 ocrFalseImg.append(imgFileName[txtIndex])
                 print('------------------')
                 print('【'+str(imgFileName[txtIndex])+'】'+'   结构化不匹配,跳过【文件写入】循环')
                 print('------------------')
                 continue
-            print('------------------')
-            print('构化匹配成功！开始进行文件写入...')
-            print('------------------')
+            # print('------------------')
+            # print('构化匹配成功！开始进行文件写入...')
+            # print('------------------')
         except Exception as e: 
+            print("判断构化异常")
             print(e)
             continue
 
@@ -173,6 +200,9 @@ for pdfIndex in range(len(pdfNames)):
                     jump=False
 
             if jump==False:
+                print('------------------')
+                print('构化匹配成功！开始进行文件写入...')
+                print('------------------')
                 for i in range(len(result['data']['ret'])):
                     with open(imgFileNames[txtIndex]+r'.txt', 'a') as f:
                         f.write(result['data']['ret'][i]['word']+'\n')
@@ -180,6 +210,10 @@ for pdfIndex in range(len(pdfNames)):
                     print('------------------')
 
                 print('【'+imgFileNames[txtIndex]+r'.txt'+'】'+'   写入成功！')
+                print('------------------')
+            else:
+                print('------------------')
+                print('Erro：报告编号写入中文,break！...')
                 print('------------------')
  
 
