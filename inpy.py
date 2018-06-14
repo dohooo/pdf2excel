@@ -32,7 +32,7 @@ nowUrl=os.path.abspath(__file__)
 fatherUrl=os.path.abspath(os.path.dirname('__file__'))
 #初始化接口参数信息
 """ 你的 APPID AK SK """
-APP_ID = '4TGtNMPxNGg8hP6RcMsGveDfxcicwPuF'
+APP_ID = '11333917'
 API_KEY = '15GrG4tIZzZLDQUUPAun128v'
 SECRET_KEY = '4TGtNMPxNGg8hP6RcMsGveDfxcicwPuF'
 
@@ -155,10 +155,11 @@ for pdfIndex in range(len(pdfNames)):
                 print('【'+str(imgFileName[txtIndex])+'】'+'   结构化不匹配,跳过【文件写入】循环')
                 print('------------------')
                 continue
-            print('------------------')
-            print('构化匹配成功！开始进行文件写入...')
-            print('------------------')
+            # print('------------------')
+            # print('构化匹配成功！开始进行文件写入...')
+            # print('------------------')
         except Exception as e: 
+            print("判断构化异常")
             print(e)
             continue
 
@@ -173,6 +174,9 @@ for pdfIndex in range(len(pdfNames)):
                     jump=False
 
             if jump==False:
+                print('------------------')
+                print('构化匹配成功！开始进行文件写入...')
+                print('------------------')
                 for i in range(len(result['data']['ret'])):
                     with open(imgFileNames[txtIndex]+r'.txt', 'a') as f:
                         f.write(result['data']['ret'][i]['word']+'\n')
@@ -180,6 +184,10 @@ for pdfIndex in range(len(pdfNames)):
                     print('------------------')
 
                 print('【'+imgFileNames[txtIndex]+r'.txt'+'】'+'   写入成功！')
+                print('------------------')
+            else:
+                print('------------------')
+                print('Erro：报告编号写入中文,break！...')
                 print('------------------')
  
 
