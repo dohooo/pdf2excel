@@ -134,7 +134,7 @@ for pdfIndex in range(len(pdfNames)):
         os.chdir(fatherUrl+'/txt')
         os.mkdir(str(pdfNames[pdfIndex])[:-4])
         os.chdir(fatherUrl+'/txt/'+str(pdfNames[pdfIndex])[:-4])
-    print('共有'+str(imgFileNamesLen)+'个文件等待读取。')
+    print('共有'+str(imgFileNamesLen)+'个txt文件被读取。')
     print('------------------')
 
     for txtIndex in range(len(imgFileName)):
@@ -176,18 +176,15 @@ for pdfIndex in range(len(pdfNames)):
             continue
 
         try:
-            if result['data']['isStructured']=='False':
+            if str(result['data']['isStructured'])=='False':
                 ocrFalseImg.append(imgFileName[txtIndex])
                 print('------------------')
                 print('【'+str(imgFileName[txtIndex])+'】'+'   结构化不匹配,跳过【文件写入】循环')
                 print('------------------')
                 continue
-            # print('------------------')
-            # print('构化匹配成功！开始进行文件写入...')
-            # print('------------------')
         except Exception as e: 
-            print("判断构化异常")
-            print(e)
+            # print("判断构化异常")
+            # print(e)
             continue
 
         try:
