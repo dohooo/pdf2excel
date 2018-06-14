@@ -34,7 +34,7 @@ nowUrl=os.path.abspath(__file__)
 fatherUrl=os.path.abspath(os.path.dirname('__file__'))
 #初始化接口参数信息
 """ 你的 APPID AK SK """
-APP_ID = '4TGtNMPxNGg8hP6RcMsGveDfxcicwPuF'
+APP_ID = '11333917'
 API_KEY = '15GrG4tIZzZLDQUUPAun128v'
 SECRET_KEY = '4TGtNMPxNGg8hP6RcMsGveDfxcicwPuF'
 
@@ -48,7 +48,7 @@ def contain_zh(word):
     match = zh_pattern.search(word)
     return match
 #获取Access_token /// client_id 为官网获取的AK， client_secret 为官网获取的SK
-host = 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=DQ7XPA80smAQxYozIrXpS1ng&client_secret=qN8M7PvGRTy2MwfQDnyKbjhdQa3UtWQg'
+host = 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=15GrG4tIZzZLDQUUPAun128v&client_secret=4TGtNMPxNGg8hP6RcMsGveDfxcicwPuF'
 request1=urllib.request.Request(host)
 request1.add_header('Content-Type', 'application/json;charset=UTF-8')
 response = urllib.request.urlopen(request1)
@@ -158,7 +158,8 @@ for pdfIndex in range(len(pdfNames)):
             # result = client.custom(image, templateSign)
             postdata = urllib.parse.urlencode({  
                 "image":image,  
-                "templateSign":"25c21a77d7daa2446856871c49f253c4"  
+                "templateSign":"f3b35f4c3d36db6b89c9608ea288d8b6",
+                
             }).encode("utf-8") #将数据使用urlencode编码后，使用encode（）设置utf-8编码  
 
             req = urllib.request.Request(api_url,postdata)  
