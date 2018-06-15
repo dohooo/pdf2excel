@@ -164,14 +164,11 @@ for pdfIndex in range(len(pdfNames)):
             continue
 
         try:
-            # print(result['data']['ret'])
             jump=False
-            for i in range(len(result['data']['ret'])):
-                if contain_zh(result['data']['ret'][i]['word']):
-                    jump=True
-                    break
-                else:
-                    jump=False
+            # 打印报告编号,并直接判断报告编号中的中文
+            print(result['data']['ret'][len(result['data']['ret'])-1]['word'])
+            if contain_zh(result['data']['ret'][len(result['data']['ret'])-1]['word']):
+                jump=True
 
             if jump==False:
                 print('------------------')
