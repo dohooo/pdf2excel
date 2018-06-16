@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['inpy.py'],
-             pathex=['D:\\inPy(http,exe°æ±¾,printÖÐÎÄ°æ)'],
+             pathex=['D:\\sourceCode\\demo2sb'],
              binaries=[],
              datas=[],
              hiddenimports=[],

@@ -53,8 +53,8 @@ request1=urllib.request.Request(host)
 request1.add_header('Content-Type', 'application/json;charset=UTF-8')
 response = urllib.request.urlopen(request1)
 content = response.read()
-if (content):
-    print(json.loads(str(content, encoding = "utf-8"))['access_token'])
+# if (content):
+#     print(json.loads(str(content, encoding = "utf-8"))['access_token'])
 Access_token=json.loads(str(content, encoding = "utf-8"))['access_token']
 
 
@@ -90,7 +90,7 @@ for pdfIndex in range(len(pdfNames)):
     # 获取pdf页数
     pdf_num = pdf_im.getNumPages()
 
-    print('第'+str(pdfIndex+1)+'个pdf文件一共'+str(pdf_num)+'页,文件名为【'+pdfNames[pdfIndex]+'】')
+    print('fdsfdsfs'+str(pdfIndex+1)+'fsdfsdfsdf'+str(pdf_num)+'fdsfsd,ffsdfsd'+pdfNames[pdfIndex]+'】')
     for p in range(pdf_num):
         try:
             im = PythonMagick.Image()
@@ -99,7 +99,7 @@ for pdfIndex in range(len(pdfNames)):
             # 当前以在img目录下
             im.write(str(pdfNames[pdfIndex])[:-4] +'_'+ str(p+1) + '.jpg')
             imgNames.append(str(pdfNames[pdfIndex])[:-4] +'_'+ str(p+1) + '.jpg')
-            print("正在处理第"+str(pdfIndex+1)+"个pdf文件  >>>   "+str(p+1)+"/"+str(pdf_num)+'页')
+            print("fdsfdsf"+str(pdfIndex+1)+"fsdfsdfs  >>>   "+str(p+1)+"/"+str(pdf_num)+'fsdfsdfsf')
         except Exception as e:
             print('========================================')
             print('Skip the first page')
@@ -134,7 +134,7 @@ for pdfIndex in range(len(pdfNames)):
         os.chdir(fatherUrl+'/txt')
         os.mkdir(str(pdfNames[pdfIndex])[:-4])
         os.chdir(fatherUrl+'/txt/'+str(pdfNames[pdfIndex])[:-4])
-    print('共有'+str(imgFileNamesLen)+'个文件等待读取。')
+    print('fsdfdsfs'+str(imgFileNamesLen)+'fdsfdsfsf')
     print('------------------')
 
     for txtIndex in range(len(imgFileName)):
@@ -145,7 +145,7 @@ for pdfIndex in range(len(pdfNames)):
 
         image = get_file_content(fatherUrl+'/img/'+str(pdfNames[pdfIndex])[:-4]+'/'+imgFileName[txtIndex])
 
-        print('正在读取【'+imgFileName[txtIndex]+'】'+'   进度为：'+str(txtIndex)+'/'+str(imgFileNamesLen))
+        print('fdsfsfsfs'+imgFileName[txtIndex]+'】'+'   fsdfsdfs'+str(txtIndex)+'/'+str(imgFileNamesLen))
         """ 如果有可选参数 """
         options = {}
         options["detect_direction"] = "true"
@@ -171,7 +171,7 @@ for pdfIndex in range(len(pdfNames)):
             # result数据
             # print(result)
         except Exception as e: 
-            print('请检查当前网络,问题如下：')
+            print('fdsfsd,fsdfsdfs')
             print(e)
             continue
 
@@ -179,14 +179,14 @@ for pdfIndex in range(len(pdfNames)):
             if result['data']['isStructured']=='False':
                 ocrFalseImg.append(imgFileName[txtIndex])
                 print('------------------')
-                print('【'+str(imgFileName[txtIndex])+'】'+'   结构化不匹配,跳过【文件写入】循环')
+                print('【'+str(imgFileName[txtIndex])+'】'+'   fdsfsd,grgrtgdf')
                 print('------------------')
                 continue
             # print('------------------')
             # print('构化匹配成功！开始进行文件写入...')
             # print('------------------')
         except Exception as e: 
-            print("判断构化异常")
+            print("fdsfsdcx")
             print(e)
             continue
 
@@ -199,19 +199,19 @@ for pdfIndex in range(len(pdfNames)):
 
             if jump==False:
                 print('------------------')
-                print('构化匹配成功！开始进行文件写入...')
+                print('dfdsfsfs...')
                 print('------------------')
                 for i in range(len(result['data']['ret'])):
                     with open(imgFileNames[txtIndex]+r'.txt', 'a') as f:
                         f.write(result['data']['ret'][i]['word']+'\n')
-                    print('成功写入=>'+str(result['data']['ret'][i]['word_name']))
+                    print('fdsfdsfs=>'+str(result['data']['ret'][i]['word_name']))
                     print('------------------')
 
-                print('【'+imgFileNames[txtIndex]+r'.txt'+'】'+'   写入成功！')
+                print('【'+imgFileNames[txtIndex]+r'.txt'+'】'+'   fdsfsdf')
                 print('------------------')
             else:
                 print('------------------')
-                print('Erro：报告编号写入中文,break！...')
+                print('fdsfdsfsfds,【break！】...')
                 print('------------------')
  
 
@@ -228,7 +228,7 @@ for pdfIndex in range(len(pdfNames)):
         except Exception as e: 
             print(e)
 
-    print('本次数据筛选写入完成,以下是不符合构化的图片文件:')
+    print('fdfdsfdsdf,hvnvny:')
     print('==========================================')
     print(ocrFalseImg)
 
@@ -268,7 +268,7 @@ for pdfIndex in range(len(pdfNames)):
 
 
 
-    print('共有'+str(txtFileNamesLen)+'个文件等待读取。')
+    print('fdfsdfsf'+str(txtFileNamesLen)+'gfcbgfg')
     print('------------------')
     # 生成对应文件长度的数组
     for arrIndex in range(len(txtFileName)):
@@ -353,7 +353,7 @@ for pdfIndex in range(len(pdfNames)):
     if __name__ == '__main__':
         write_excel()
 
-    print('恭喜！【'+str(pdfNames[pdfIndex])[:-4]+"】文件编写完成！！！")
+    print('dfsfsdfs'+str(pdfNames[pdfIndex])[:-4]+"fsdfsfsd")
 
 
     os.chdir(fatherUrl+'/img')
