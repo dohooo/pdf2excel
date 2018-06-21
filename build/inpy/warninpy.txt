@@ -1,6 +1,7 @@
 missing module named resource - imported by posix, D:\inPy(http,exe版本,print中文版)\inpy.py
 missing module named posix - imported by os, D:\inPy(http,exe版本,print中文版)\inpy.py
 missing module named _posixsubprocess - imported by subprocess, D:\inPy(http,exe版本,print中文版)\inpy.py
+missing module named org - imported by pickle, D:\inPy(http,exe版本,print中文版)\inpy.py
 missing module named readline - imported by cmd, code, pdb, D:\inPy(http,exe版本,print中文版)\inpy.py
 excluded module named _frozen_importlib - imported by importlib, importlib.abc, D:\inPy(http,exe版本,print中文版)\inpy.py
 missing module named _frozen_importlib_external - imported by importlib._bootstrap, importlib, importlib.abc, D:\inPy(http,exe版本,print中文版)\inpy.py
@@ -19,10 +20,9 @@ missing module named urllib.quote_plus - imported by urllib, requests.compat
 missing module named urllib.unquote - imported by urllib, requests.compat
 missing module named urllib.quote - imported by urllib, requests.compat, aip.base
 missing module named grp - imported by shutil, tarfile, D:\inPy(http,exe版本,print中文版)\inpy.py
+missing module named pwd - imported by posixpath, shutil, tarfile, http.server, webbrowser, netrc, getpass, D:\inPy(http,exe版本,print中文版)\inpy.py
 missing module named _dummy_threading - imported by dummy_threading, D:\inPy(http,exe版本,print中文版)\inpy.py
 missing module named 'org.python' - imported by copy, xml.sax, D:\inPy(http,exe版本,print中文版)\inpy.py
-missing module named pwd - imported by posixpath, shutil, tarfile, http.server, webbrowser, netrc, getpass, D:\inPy(http,exe版本,print中文版)\inpy.py
-missing module named org - imported by pickle, D:\inPy(http,exe版本,print中文版)\inpy.py
 missing module named _scproxy - imported by urllib.request
 missing module named elementtree - imported by xlrd.xlsx
 missing module named lxml - imported by xlrd.xlsx
